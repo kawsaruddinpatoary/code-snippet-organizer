@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include<vector>
 using namespace std;
 
 // Structure to store snippet details
