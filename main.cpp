@@ -8,14 +8,6 @@ int main() {
         cout << "Enter your choice: ";
         cin >> choice;
 
-        // Handle invalid input
-        if(cin.fail()) {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "\n[!] Invalid input. Please enter a number.\n";
-            continue;
-        }
-
         switch (choice) {
             case 1: addSnippet(); break;
             case 2: viewSnippets(); break;
