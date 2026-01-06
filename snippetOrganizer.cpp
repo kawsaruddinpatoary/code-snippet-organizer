@@ -69,7 +69,7 @@ void addSnippet() {
          << "DATE:" << snip.dateCreated << "\n"
          << "---\n";
     
-    cout << "\n✅ Snippet added successfully!\n";
+    cout << "\nSnippet added successfully!\n";
 }
 
 // View all snippets
@@ -180,7 +180,7 @@ void searchSnippet() {
         }
     }
 
-    if (!found) cout << "\n❌ No matching snippet found.\n";
+    if (!found) cout << "\nNo matching snippet found.\n";
 }
 
 // Edit snippet
@@ -194,22 +194,50 @@ void editSnippet() {
 
     for (auto& snip : snippets) {
         if (snip.id == id) {
+            cin.ignore(); // clear buffer
+
+            cout << "\nWhat do you want to update?\n";
+            cout << "1. Title\n";
+            cout << "2. Language\n";
+            cout << "3. Tag\n";
+            cout << "4. Code\n";
+            cout << "Enter choice: ";
+
+            int choice;
+            cin >> choice;
             cin.ignore();
-            cout << "New Title: ";
-            getline(cin, snip.title);
 
-            cout << "New Language: ";
-            getline(cin, snip.language);
+            switch (choice) {
+                case 1:
+                    cout << "Enter new title: ";
+                    getline(cin, snip.title);
+                    break;
 
-            cout << "New Tags: ";
-            getline(cin, snip.tags);
+                case 2:
+                    cout << "Enter new language: ";
+                    getline(cin, snip.language);
+                    break;
 
-            cout << "Enter new Code (END to finish):\n";
-            snip.code = "";
-            string line;
-            while (getline(cin, line) && line != "END") {
-                snip.code += line + "\n";
+                case 3:
+                    cout << "Enter new tag: ";
+                    getline(cin, snip.tags);
+                    break;
+
+                case 4: {
+                    cout << "Enter new code (type END on a new line to finish):\n";
+                    snip.code.clear();
+                    string line;
+                    while (getline(cin, line) && line != "END") {
+                        snip.code += line + "\n";
+                    }
+                    break;
+                }
+
+                default:
+                    cout << "\nInvalid choice. No changes made.\n";
+                    return;
             }
+
             updated = true;
             break;
         }
@@ -217,9 +245,9 @@ void editSnippet() {
 
     if (updated) {
         saveSnippets(snippets);
-        cout << "\n Snippet updated successfully!\n";
+        cout << "\nSnippet updated successfully!\n";
     } else {
-        cout << "\n ID not found.\n";
+        cout << "\nID not found.\n";
     }
 }
 
@@ -401,7 +429,7 @@ void exportSnippet() {
     outFile << code;
     outFile.close();
 
-    cout << "\n✅ Snippet exported successfully as: " << filename << "\n";
+    cout << "\n Snippet exported successfully as: " << filename << "\n";
 }
 
 
