@@ -8,7 +8,7 @@ Developed as part of the **Software Development I** course project.
 ## 📘 Project Overview
 
 The **Code Snippet Organizer** is a lightweight, console-based application that allows programmers to **store, view, search, edit, delete, and filter code snippets** easily.  
-All snippets are stored persistently in a **binary file**, making it a simple yet powerful offline code management tool — built entirely using **C++** standard libraries.
+All snippets are stored persistently in a **file**, making it a simple yet powerful offline code management tool — built entirely using **C++** standard libraries.
 
 ---
 
@@ -29,14 +29,12 @@ To design and implement a **medium-scale console project** in C++ that demonstra
 |----------|-------------|
 | ➕ **Add Snippet** | Add a new code snippet with title, language, tags, and code. Automatically assigns unique ID and creation date. |
 | 📂 **View All Snippets** | Display all stored snippets in an easy-to-read console format. |
-| 🔍 **Search Snippet** | Search snippets by title, tags, or language. |
+| 🔍 **Search Snippet** | Search snippets by title, tags, or language (Case sensitive). |
 | ✏️ **Edit Snippet** | Update snippet details directly through the console. |
 | ❌ **Delete Snippet** | Remove a specific snippet by ID. |
 | ⚙️ **Sort Snippets** | Sort snippets by title, language, or date using standard sorting algorithms. |
-| 🧩 **Filter by Language** | Display snippets from a specific programming language only. |
 | 📤 **Export Snippet** | Export a specific snippet to a text file (`.txt`). |
 | 📅 **Date Tracking** | Automatically stores the date when a snippet was created. |
-| ℹ️ **About Section** | Displays project and team information. |
 
 ---
 
@@ -55,59 +53,34 @@ To design and implement a **medium-scale console project** in C++ that demonstra
 ## 🧱 Project Structure
 
 ```
-CodeSnippetManager/
+CodesnippetOrganizer/
 │
 ├── main.cpp              # Entry point (main menu + core logic)
-├── snippetManager.cpp    # All CRUD operations and utility functions
-├── snippetManager.h      # Function prototypes and struct definitions
-├── snippets.dat          # Binary data file (auto-created)
+├── snippetOrganizer.cpp    # All CRUD operations and utility functions
+├── snippetOrganizer.h      # Function prototypes and struct definitions
+├── snippets.dat          # Data file (auto-created)
+├── snippetOrganizer.exe   # Executable program file (Application)
 ├── README.md             # Project documentation
-└── sample_exports/       # Folder for exported snippet text files
+
 ```
-
-### 📄 File Descriptions
-
-- **`main.cpp`**: Contains the main menu loop and user interaction logic
-- **`snippetManager.h`**: Defines the `Snippet` structure and declares all function prototypes
-- **`snippetManager.cpp`**: Implements all CRUD operations (Create, Read, Update, Delete) and utility functions
-- **`snippets.dat`**: Binary file that stores all snippet data persistently
-- **`sample_exports/`**: Directory where exported snippets are saved as `.txt` files
 
 ---
 
 ## 🧭 Installation & Setup
 
-### 1️⃣ Clone the Repository
+### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/CodeSnippetManager.git
-cd CodeSnippetManager
+git clone https://github.com/kawsaruddinpatoary/code-snippet-organizer
+cd code-snippet-organizer
 ```
 
-### 2️⃣ Compile the Project
+### Run the Application
+- Double click the `snippetOrganizer.exe` file.
+- Or open any command line then change directiory to project folder and run the command:
 
-#### Using GCC/MinGW (Command Line)
 ```bash
-g++ main.cpp snippetManager.cpp -o CodeSnippetManager
-```
-
-#### Using Code::Blocks
-1. Open Code::Blocks
-2. Create a new **Console Application** project
-3. Add `main.cpp`, `snippetManager.cpp`, and `snippetManager.h` to the project
-4. Build and run (F9)
-
-#### Using Visual Studio Code
-1. Open the project folder in VS Code
-2. Install the **C/C++ extension** by Microsoft
-3. Use the integrated terminal to compile:
-   ```bash
-   g++ main.cpp snippetManager.cpp -o CodeSnippetManager
-   ```
-
-### 3️⃣ Run the Application
-```bash
-./CodeSnippetManager          # Linux/Mac
-CodeSnippetManager.exe        # Windows
+./snippetOrganizer          # Linux/Mac
+snippetOrganizer.exe        # Windows
 ```
 
 ---
@@ -125,11 +98,9 @@ CodeSnippetManager.exe        # Windows
 3. Search Snippet
 4. Edit Snippet
 5. Delete Snippet
-6. Sort Snippets
-7. Filter by Language
-8. Export Snippet to File
-9. About
-0. Exit
+6. Export Snippet
+7. Sort Snippets
+8. Exit
 ========================================
 ```
 
@@ -137,11 +108,14 @@ CodeSnippetManager.exe        # Windows
 
 #### Adding a Snippet
 ```
-Enter snippet title: Binary Search Implementation
-Enter programming language: C++
-Enter tags (comma-separated): algorithm, search, arrays
-Enter code snippet:
+Enter title: Binary Search Implementation
+Enter language (C/C++/Python/etc): C++
+Enter tags (comma separated): algorithm, search, arrays
+Enter your code (type END on a single line to finish):
 [Paste or type your code here]
+END
+
+Snippet added successfully!
 ```
 
 #### Searching for Snippets
@@ -151,36 +125,37 @@ Enter code snippet:
 
 #### Exporting a Snippet
 - Enter the snippet ID to export
-- File is saved to `sample_exports/` directory with format: `snippet_[ID]_[title].txt`
+- File is saved to working directory with format: `[title].cpp`
+- Extension is based on programming language `(c, cpp, py, cs, js, java)`
+- For all other cases, default extension is `.txt`
 
 ---
 
 ## 🔧 Code Structure
 
-### Snippet Structure (from `snippetManager.h`)
+### Snippet Structure (from `snippetOrganizer.h`)
 
-```cpp
+```c
 struct Snippet {
     int id;
-    char title[100];
-    char language[50];
-    char tags[200];
-    char code[2000];
-    char date[20];  // Format: YYYY-MM-DD
+    string title[100];
+    string language[50];
+    string tags[200];
+    string code[2000];
+    string date[20];  // Format: YYYY-MM-DD
 };
 ```
 
-### Key Functions (in `snippetManager.cpp`)
+### Key Functions (in `snippetOrganizer.cpp`)
 
 | Function | Purpose |
 |----------|---------|
 | `addSnippet()` | Creates and saves a new snippet |
-| `viewAllSnippets()` | Displays all stored snippets |
-| `searchSnippet()` | Searches by title/tags/language |
+| `viewSnippets()` | Displays all stored snippets |
+| `searchSnippet()` | Searches by title/tags/language (Case sensitive) |
 | `editSnippet()` | Modifies existing snippet data |
 | `deleteSnippet()` | Removes snippet by ID |
 | `sortSnippets()` | Sorts snippets using comparison algorithms |
-| `filterByLanguage()` | Filters snippets by programming language |
 | `exportSnippet()` | Exports snippet to text file |
 | `getCurrentDate()` | Returns current date in YYYY-MM-DD format |
 
@@ -188,29 +163,17 @@ struct Snippet {
 
 ## 📊 Data Persistence
 
-- All snippets are stored in **`snippets.dat`** using **binary file I/O**
+- All snippets are stored in **`snippets.dat`** using **file I/O**
 - Data is automatically saved after each operation
 - File is created automatically on first run if it doesn't exist
-- Uses `fstream` for reading/writing binary data
-
-### Binary File Operations
-```cpp
-// Writing to file
-ofstream outFile("snippets.dat", ios::binary | ios::app);
-outFile.write(reinterpret_cast<char*>(&snippet), sizeof(Snippet));
-
-// Reading from file
-ifstream inFile("snippets.dat", ios::binary);
-inFile.read(reinterpret_cast<char*>(&snippet), sizeof(Snippet));
-```
-
+- Uses `fstream` for reading/writing data
 ---
 
 ## 🎓 Learning Outcomes
 
 This project demonstrates:
 
-✅ **File Handling**: Binary file I/O operations with `fstream`  
+✅ **File Handling**: File I/O operations with `fstream`  
 ✅ **Data Structures**: Using structs to organize complex data  
 ✅ **Modular Programming**: Separation of concerns across multiple files  
 ✅ **CRUD Operations**: Complete Create, Read, Update, Delete functionality  
@@ -224,10 +187,8 @@ This project demonstrates:
 ## 🐛 Known Limitations
 
 - Fixed-size character arrays limit snippet length (2000 characters)
-- Binary file format is not human-readable
 - No encryption or password protection for sensitive code
 - Console-based interface only (no GUI)
-- Limited error handling for file operations
 
 ---
 
@@ -247,25 +208,25 @@ This project demonstrates:
 
 **Course:** Software Development I  
 **Project Type:** Console Application (C++)  
-**Semester:** [Add your semester]  
-**Institution:** [Add your university name]
+**Semester:** Fall-2025  
+**Institution:** Northern University Bangladesh
 
 **Team Members:**
-- [Your Name] - [Roll/ID]
-- [Team Member 2] - [Roll/ID] *(if applicable)*
+- **Kawsar Uddin Patoary - 41240202315**
+- **Md Iajuddin Ahmed - 41240202288**
 
 ---
 
 ## 📝 License
 
-This project is developed for educational purposes as part of the Software Development I course.  
+This project is developed for educational purposes as part of the Software Development-I course.  
 Feel free to use and modify for learning purposes.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Course Instructor: [Instructor Name]
+- Course Instructor: **Mst. Asiya Akter** (Lecturer, CSE)
 - C++ Reference Documentation
 - Stack Overflow Community
 - Fellow classmates for testing and feedback
@@ -275,8 +236,8 @@ Feel free to use and modify for learning purposes.
 ## 📞 Contact
 
 For questions or feedback:
-- **Email:** [your.email@example.com]
-- **GitHub:** [@yourusername](https://github.com/yourusername)
+- **Email:** kawsaruddin450@gmail.com
+- **GitHub:** [@kawsaruddinpatoary](https://github.com/kawsaruddinpatoary)
 
 ---
 
