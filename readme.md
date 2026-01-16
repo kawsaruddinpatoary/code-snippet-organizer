@@ -68,19 +68,29 @@ CodesnippetOrganizer/
 
 ## 🧭 Installation & Setup
 
+### Requirements
+
+- **MinGW Compiler**
+- Command prompt/ Terminal
+
 ### Clone the Repository
 ```bash
 git clone https://github.com/kawsaruddinpatoary/code-snippet-organizer
-cd code-snippet-organizer
 ```
 
-### Run the Application
-- Double click the `snippetOrganizer.exe` file.
-- Or open any command line then change directiory to project folder and run the command:
+### Compile the program (MinGW Compiiler)
+- Move to the working directory where this project is saved.
+- Run this command:
 
 ```bash
-./snippetOrganizer          # Linux/Mac
+g++ main.cpp snippetOrganizer.cpp -o snippetOrganizer       
+```
+### Run the Application
+- Use this command to run the program:
+
+```bash
 snippetOrganizer.exe        # Windows
+./snippetOrganizer          # Linux/Mac
 ```
 
 ---
